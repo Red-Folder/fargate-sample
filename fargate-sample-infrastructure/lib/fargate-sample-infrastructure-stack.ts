@@ -6,7 +6,7 @@ export class FargateSampleInfrastructureStack extends cdk.Stack {
     super(scope, id, props);
 
     const repository = new ecr.Repository(this, 'Repository', {
-      repositoryName: 'fargate-sample'
+      repositoryName: 'fargatesampleapp'
     });
 
     new cdk.CfnOutput(this, 'RepositoryUrl', {

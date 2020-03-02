@@ -17,9 +17,12 @@ If the monitored action does not "check in" within the last 10 seconds, then the
 The Docker Health Check is configured to check against the WebApi every 5 seconds.  If the WebApi returns unhealthy 3 times in a row, then the Docker Health Check will register the container as unhealthy.
 
 ## Build and deploy
-This application uses Docker to build application image.
+Before deploying, ensure that the ECR (Elastic Container Registry) has been created using the [fargate-sample-infrastructure](../fargate-sample-infrastructure/README.md).  Instructions below assume that the ECR has been created and you have the full Url.
 
 To build and deploy:
 
 * `cd FargateSampleApp` Change directory to the sample app
-* `docker build -t fargatesampleapp .` Build the application using Docker
+* `(Get-ECRLoginCommand).Password | docker login --username AWS --password-stdin {ECR Url}` Configured Docker with the credentials of your ECR instance.  Note that {ECR Url} should be replaced with the full Url of your ECR instance.
+* `docker build -t fargatesampleapp:1.0 .` Build the application using Docker
+* `docker tag fargatesampleapp:1.0 {ECR Url}:1.0` Tags the application ready for push.  Note that {ECR Url} should be replaced with the full Url of your ECR instance.
+* `docker push {ECR Url}:latest` Pushes the image to ECR.  Note that {ECR Url} should be replaced with the full Url of your ECR instance.
