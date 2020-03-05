@@ -7,11 +7,11 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FargateSampleApp.Health
 {
-    public class HealthWebServer
+    public class HealthWebServer : IHealthWebServer
     {
-        private readonly HealthMonitor _health;
+        private readonly IHealthMonitor _health;
 
-        public HealthWebServer(HealthMonitor health)
+        public HealthWebServer(IHealthMonitor health)
         {
             _health = health;
         }

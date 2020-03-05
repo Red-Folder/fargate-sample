@@ -6,9 +6,9 @@ namespace FargateSampleApp.Health
     [ApiController]
     public class HealthController : ControllerBase
     {
-        private readonly HealthMonitor _health;
+        private readonly IHealthMonitor _health;
 
-        public HealthController(HealthMonitor health)
+        public HealthController(IHealthMonitor health)
         {
             _health = health;
         }

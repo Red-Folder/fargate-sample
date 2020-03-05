@@ -1,16 +1,16 @@
 ﻿using FargateSampleApp.Health;
-using Serilog;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Threading;
 
 namespace FargateSampleApp.Actions
 {
-    public class FakePoller
+    public class FakePoller : IAction
     {
-        private readonly HealthMonitor _health;
-        private readonly ILogger _logger;
+        private readonly IHealthMonitor _health;
+        private readonly ILogger<FakePoller> _logger;
 
-        public FakePoller(HealthMonitor health, ILogger logger)
+        public FakePoller(IHealthMonitor health, ILogger<FakePoller> logger)
         {
             _health = health;
             _logger = logger;
@@ -39,14 +39,14 @@ namespace FargateSampleApp.Actions
             switch (value)
             {
                 case 1:
-                    _logger.Information("Simulating a crash");
+                    _logger.LogInformation("Simulating a crash");
                     throw new Exception("Something broke");
                 case 2:
-                    _logger.Information("Simulating a hang - going to sleep for 2 minutes");
+                    _logger.LogInformation("Simulating a hang - going to sleep for 2 minutes");
                     Thread.Sleep(2 * 60 * 1000);
                     break;
                 default:
-                    _logger.Information("Working ok");
+                    _logger.LogInformation("Working ok");
                     break;
             }
         }

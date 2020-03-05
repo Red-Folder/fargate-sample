@@ -2,7 +2,7 @@
 
 namespace FargateSampleApp.Health
 {
-    public class HealthMonitor
+    public class HealthMonitor : IHealthMonitor
     {
         private const int THRESHOLD_IN_SECONDS = 10;
         private bool _monitoring = false;
