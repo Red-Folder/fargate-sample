@@ -22,7 +22,7 @@ export class FargateSampleAppStack extends cdk.Stack {
 
         const taskDefinition = new ecs.FargateTaskDefinition(this, "TaskDefinition");
         taskDefinition.addContainer('SampleApp', {
-            image: ecs.ContainerImage.fromEcrRepository(repository, "latest"),
+            image: ecs.ContainerImage.fromEcrRepository(repository),
             cpu: 256,
             memoryLimitMiB: 512,
             logging: ecs.LogDrivers.awsLogs({
